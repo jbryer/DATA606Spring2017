@@ -1,0 +1,52 @@
+state	smoking	obesity	exercise	fruits	vegetables
+Connecticut	15.5	25.0	24.9	34.4	15.7
+Maine	20.2	28.9	23.3	34.3	17.9
+Massachusetts	16.6	23.6	23.5	33.8	16.9
+New Hampshire	16.2	26.7	22.4	32.7	17.0
+New Jersey	15.7	26.3	26.8	31.3	15.1
+New York	16.6	25.4	26.7	34.1	16.2
+Pennsylvania	21.0	30.0	26.3	30.1	13.4
+Rhode Island	17.4	27.3	26.9	32.9	14.9
+Vermont	16.6	24.7	20.5	34.7	18.1
+Alabama	21.5	32.4	31.5	20.3	12.4
+Arkansas	25.9	34.6	34.4	22.4	13.0
+Delaware	19.6	31.1	27.8	30.2	14.3
+District of Columbia	18.8	22.9	19.5	35.2	18.5
+Florida	16.8	26.4	27.7	31.7	16.8
+Georgia	18.8	30.3	27.2	26.0	16.0
+Kentucky	26.5	33.2	30.2	22.8	11.7
+Louisiana	23.5	33.1	32.2	20.9	11.3
+Maryland	16.4	28.3	25.3	30.9	16.1
+Mississippi	24.8	35.1	38.1	21.7	10.9
+North Carolina	20.3	29.4	26.6	23.6	12.7
+Oklahoma	23.7	32.5	33.0	19.0	10.6
+South Carolina	22.0	31.7	26.9	25.5	12.5
+Tennessee	24.3	33.7	37.2	17.6	11.2
+Texas	15.9	30.9	30.1	23.5	14.9
+Virginia	19.0	27.2	25.5	31.3	16.4
+West Virginia	27.3	35.1	31.4	19.0	11.7
+Illinois	18.0	29.4	25.1	34.5	16.9
+Indiana	21.9	31.8	31.1	27.2	13.2
+Iowa	19.5	31.3	28.5	27.5	11.8
+Kansas	20.0	30.0	26.5	24.2	14.2
+Michigan	21.4	31.5	24.4	30.1	13.8
+Minnesota	18.0	25.5	23.5	30.2	14.3
+Missouri	22.1	30.4	28.3	25.2	13.2
+Nebraska	18.5	29.6	25.3	29.8	14.2
+North Dakota	21.2	31.0	27.6	28.1	11.7
+Ohio	23.4	30.4	28.5	26.4	12.9
+South Dakota	19.6	29.9	23.9	26.4	11.6
+Wisconsin	18.7	29.8	23.8	31.0	13.0
+Alaska	22.6	28.4	22.3	30.5	19.5
+Arizona	16.3	26.8	25.2	27.8	17.7
+California	12.5	24.1	21.4	39.8	22.7
+Colorado	17.7	21.3	17.9	33.5	18.1
+Hawaii	13.3	21.8	22.1	29.1	18.3
+Idaho	17.2	29.6	23.7	30.6	17.6
+Montana	19.0	24.6	22.5	28.9	16.5
+Nevada	19.4	26.2	23.7	30.7	17.6
+New Mexico	19.1	26.4	24.3	28.3	17.8
+Oregon	17.3	26.5	18.6	34.6	19.7
+Utah	10.3	24.1	20.6	33.4	17.2
+Washington	16.1	27.2	20.0	28.3	16.4
+Wyoming	20.6	27.8	25.1	27.3	16.3
