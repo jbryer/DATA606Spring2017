@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DATA 606 - Fall 2016</title>
+    <description></description>
+    <link>http://data606.net/</link>
+    <atom:link href="http://data606.net/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 24 Aug 2016 07:55:13 -0400</pubDate>
+    <lastBuildDate>Wed, 24 Aug 2016 07:55:13 -0400</lastBuildDate>
+    <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>Welcome to DATA606!</title>
+        <description>&lt;p&gt;Welcome to DATA606! My name is Dr. Jason Bryer and I will be your instructor for this semester. In addition to teaching this course, I am an Executive Director at &lt;a href=&quot;http://excelsior.edu&quot;&gt;Excelsior College&lt;/a&gt; where I am currently working on a Department of Education grant to develop a Diagnostic Assessment and Achievement of College Skills (see &lt;a href=&quot;http://www.daacs.net&quot;&gt;www.DAACS.net&lt;/a&gt; for more information). I will record an introductory video this weekend. &lt;!--more--&gt; Couple of important notes as you get started:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The course syllabus is on Github here: &lt;a href=&quot;http://data606.net&quot;&gt;data606.net&lt;/a&gt; I will post all course materials there. Blackboard will be used primarily for communicating with one another vis-à-vis the discussion boards and to submit assignments.&lt;/li&gt;
+  &lt;li&gt;Introduce yourself in the Getting Acquanited forum on Blackboard.&lt;/li&gt;
+  &lt;li&gt;Once you go through the syllabus, try starting Lab 0 as soon as you can. This will require you to install R and RStudioand will help get you get acquainted with R.&lt;/li&gt;
+  &lt;li&gt;The best way to reach me is by email at jason.bryer@gmail.com. If you would prefer to talk on the phone or setup a GoToMeeting session, it is best to suggest some times by email first.&lt;/li&gt;
+  &lt;li&gt;Our meetups will be on Thursdays from 8pm to 9pm.&lt;/li&gt;
+  &lt;li&gt;I am looking forward to getting to know everyone and a fantastic semester! Good luck!&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Tue, 23 Aug 2016 00:00:00 -0400</pubDate>
+        <link>http://data606.net/blog/2016/08/Welcome-to-DATA606</link>
+        <guid isPermaLink="true">http://data606.net/blog/2016/08/Welcome-to-DATA606</guid>
+        
+        
+        <category>announcement</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,35 @@
+---
+title: 'Chapter 7: Linear Regression'
+output:
+  html_document:
+    keep_md: true
+---
+
+## Assignments
+
+### Homework
+
+*OpenIntro Statistics*
+
+* Practice:
+* Graded:
+
+### Lab
+
+The labs are available in the `IS606` R package. To start the first lab, use the `startLab` function. This will copy the lab to your current working directory and rename the file according to your computer username (as returend by `Sys.info()['user']`). If this is incorrect, then either provide the `file-prefix` parameter to `startLab`, or rename the file after it has been copied.
+
+```{r, eval=FALSE}
+IS606::startLab('Lab7')
+```
+
+
+## Readings
+
+* [OpenIntro Statistics slides](https://github.com/jbryer/IS606Fall2015/raw/master/Slides/OpenIntro/os2_slides_07.pdf)
+
+* [Linear regression with SAT scores](https://htmlpreview.github.io/?https://github.com/jbryer/IS606Fall2015/blob/master/Pages/Linear_Regression_SAT.html) - This document outlines the implementation of linear regression step-by-step emphasizing visualizations.
+
+
+## Videos
+
+

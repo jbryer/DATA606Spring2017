@@ -1,0 +1,156 @@
+---
+title: "Linear Regression with NYS Report Card"
+author: "Jason M. Bryer, Ph.D."
+date: "November 17, 2014"
+output: 
+  slidy_presentation:
+    keep_md: true
+---
+
+## Data Preparation
+
+The dataset contains grade 8 math scores for Albany County
+ 
+```{r}
+load('../Data/NYSReportCardAlbany.Rda')
+rc.albany <- rc.albany[,c('School','Pass2012','Pass2013')]
+print(rc.albany, row.names=FALSE)
+```
+
+## What we wish to estimate:
+
+$$Pass_{2013} = {b}_{1}Pass_{2012} + {b}_{0}$$
+
+```{r, scatterplot}
+plot(rc.albany$Pass2012, rc.albany$Pass2013, xlim=c(0,100), ylim=c(0,100))
+```
+
+## Descriptive Statistics
+
+
+$$ { mean }_{ x }=\overline { x } =\frac { \sum { { x }_{ i } }  }{ n } $$
+
+```{r means}
+(mean2012 <- mean(rc.albany$Pass2012))
+(mean2013 <- mean(rc.albany$Pass2013))
+```
+
+$$ Variance_{ x }={ s }_{ x }^{ 2 }=\frac { \sum { ({ x }_{ i }-\overline { x }  } )^{ 2 } }{ n-1 }  $$
+
+```{r variances}
+var(rc.albany$Pass2012)
+var(rc.albany$Pass2013)
+```
+
+$$ { Standard\quad Deviation }_{ x }=s=\sqrt { { s }^{ 2 } } $$
+
+```{r sds}
+(sd2012 <- sd(rc.albany$Pass2012))
+(sd2013 <- sd(rc.albany$Pass2013))
+```
+
+Number of Rows (n)
+
+```{r n}
+(n <- nrow(rc.albany))
+```
+
+## z-Scores
+
+$$ z=\frac { y-\overline { y }  }{ s } $$
+
+```{r zscores}
+rc.albany$Pass2012.z <- (rc.albany$Pass2012 - mean2012) / sd2012
+rc.albany$Pass2013.z <- (rc.albany$Pass2013 - mean2013) / sd2013
+print(rc.albany[,-1], row.names=FALSE)
+```
+
+## Correlation
+
+$$ r=\frac { \sum { { z }_{ x }{ z }_{ y } }  }{ n-1 } $$
+
+```{r corr}
+rc.albany$ZProduct <- rc.albany$Pass2012.z * rc.albany$Pass2013.z
+r <- sum( rc.albany$ZProduct ) / ( n - 1 )
+r
+print(rc.albany[,-1], row.names=FALSE)
+```
+
+## Correlation (cont.)
+
+```{r corrtest}
+cor.test(rc.albany$Pass2012, rc.albany$Pass2013)
+```
+
+## Slope
+
+$$ m = r \frac{s_y}{s_x} $$
+
+```{r slope}
+m <- r * (sd2013 / sd2012)
+m
+```
+
+## Intercept:
+
+```{r intercept}
+b <- mean2013 - m * mean2012
+b
+```
+
+## Draw Regression Line
+
+```{r scatterWithLine}
+plot(rc.albany$Pass2012, rc.albany$Pass2013, xlim=c(0,100), ylim=c(0,100))
+abline(h=mean2013, col='blue')
+abline(v=mean2012, col='blue')
+abline(a=b, b=m, col='red')
+```
+
+## Residuals
+
+```{r residuals}
+rc.albany$Predicted2013 <- m * rc.albany$Pass2012 + b
+rc.albany$Residual <- rc.albany$Pass2013 - rc.albany$Predicted2013
+print(rc.albany[,-1], row.names=FALSE)
+```
+
+## Residual Plot
+
+```{r residualPlot}
+plot(rc.albany$Pass2012, rc.albany$Residual)
+abline(h=0)
+```
+
+## Histogram of Residuals
+
+```{r residualHistogram}
+hist(rc.albany$Residual)
+```
+
+## Quantile-Quantile Plot
+
+```{r qqplot}
+qqnorm(rc.albany$Residual)
+qqline(rc.albany$Residual, col=2)
+```
+
+## Final Regression Line and $R^2$
+
+```{r, echo=FALSE, results='asis'}
+cat( paste0('$$ Pass_{2013} = ', round(m, digits=2), ' * Pass_{2012}', ifelse(b < 0, ' - ', ' + ') , round(abs(b), digits=2), ' $$' ))
+```
+
+```{r}
+r ^ 2
+```
+
+The mean score from 2012 accounts for `r round(r^2 * 100, digits=1)`% of the variance in the mean score from 2013 in math at grade 8.
+
+
+## Regression in R
+
+```{r}
+lm.out <- lm(Pass2013 ~ Pass2012, data=rc.albany)
+summary(lm.out)
+```

@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+    
+    <url>
+      <loc>http://data606.net/blog/2016/08/Welcome-to-DATA606</loc>
+      
+        <lastmod>2016-08-23T00:00:00-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
+    
+  
+  
+    
+    <url>
+      <loc>http://data606.net/pages/1_Intro_to_Data.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter1/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/2_Probability.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter2/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/3_Distributions.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter3/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/4_Foundations_for_Inference.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter4/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/5_Numerical_Data.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter5/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/6_Categorical_Data.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter6/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/7_Linear_Regression.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter7/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/8_Multiple_Regression.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter8/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/9_Bayesian.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/chapter9/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/Linear_Regression_NYSRC.Rmd</loc>
+      
+        <lastmod>2014-11-17T00:00:00-05:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/pages/Linear_Regression_SAT.Rmd</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/about/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/announcements/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/blog/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/cv/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/feed.xml</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/homework/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/labs/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/links/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/css/main.css</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/mathjax/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/presentation/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/project/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/schedule/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/sitemap.txt</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+  
+    
+    <url>
+      <loc>http://data606.net/software/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
+      <loc>http://data606.net/textbook/</loc>
+      
+        <lastmod>2016-08-24T07:55:13-04:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+</urlset>
