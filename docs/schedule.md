@@ -43,7 +43,7 @@ Access Code: 890-853-557
 
 First GoToMeeting? Try a test session: [http://help.citrix.com/getready](http://help.citrix.com/getready)
 
-[Presentation Signup Sheet](https://docs.google.com/spreadsheets/d/18JPR5b-0-Oyinj--H6hb8u8BY9QxCv8S4UsCwTGvS9w/edit#gid=0)
+[Presentation Signup Sheet](https://docs.google.com/spreadsheets/d/1geFxr-A0nlhmG36Bd2ftIdYdCZauJJ5xz-Ykq6qI6-M/edit?usp=sharing)
 
 
 
