@@ -36,6 +36,9 @@
     - subtitle: "Bayesian"
       subhref: "/pages/chapter9/"
 
+- title: "Questions"
+  href: "https://github.com/jbryer/DATA606Spring2017/issues"
+
 - title: "Misc"
   subcategories:
     - subtitle: "Software"
@@ -52,4 +55,4 @@
       subhref: "http://catalog.sps.cuny.edu/preview_program.php?catoid=2&poid=109"
     - subtitle: "OpenIntro Stats"
       shubhref: "https://www.openintro.org/stat/textbook.php?stat_book=os"
-      
+
