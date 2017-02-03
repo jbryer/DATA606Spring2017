@@ -6,6 +6,8 @@ permalink: /schedule/
 
 *NOTE: Tentative. Subject to change*  
 
+[Google Calendar](https://calendar.google.com/calendar/embed?src=tgjr6cg7ipnhovuq49hm1koudc%40group.calendar.google.com&ctz=America/New_York)
+
 <iframe src="https://calendar.google.com/calendar/embed?src=tgjr6cg7ipnhovuq49hm1koudc%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 
 <br />
@@ -49,7 +51,7 @@ First GoToMeeting? Try a test session: [http://help.citrix.com/getready](http://
 
 Date                      | Topic                           | Resources |
 :-------------------------|:--------------------------------|:----------|
-Thursday, Feb 2, 8:00 pm  | Introduction to data            | 
+Thursday, Feb 2, 8:00 pm  | Introduction to data            | [Slides](http://data606.net/slides/2017-02-02-Intro_to_Course.html), [Video]()
 March 9                   | NO MEETUP                       | 
 Thursday, Feb 16, 8:00 pm | Distributions Part I            | 
 Thursday, Feb 23, 8:00 pm | Distributions Part II           | 
