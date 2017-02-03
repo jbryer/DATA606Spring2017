@@ -92,6 +92,10 @@ Navarro, D. (2015, version 0.5). *Learning Statistics with R*
 
 #### Recommended
 
+Wickham, H., & Grolemund, G. (2016) *R for Data Science*. O'Reilly.
+
+> Most of this books is available freely online at [r4ds.had.co.nz/](http://r4ds.had.co.nz/) but can be purchased from [Amazon](https://www.amazon.com/R-Data-Science-Hadley-Wickham/dp/1491910399/ref=as_li_ss_tl?ie=UTF8&qid=1469550189&sr=8-1&keywords=R+for+data+science&linkCode=sl1&tag=devtools-20&linkId=6fe0069f9605cf847ed96c191f4e84dd).
+
 Kabacoff, R.I. (2011). *R in Action*. Manning Publications.  
 
 > You can find a lot of the material in *R in Action* on Kabacoff's website, [statmethods.net](http://statmethods.net/). You can receive 38% off using the ria38 promo code when ordering from [here](http://www.manning.com/kabacoff/).
