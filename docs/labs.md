@@ -4,7 +4,7 @@ title: Labs
 permalink: /labs/
 ---
 
-These mini projects will have you explore statistical topics using R. For each project, create an R Markdown file. Name your file using the following format: `LastName-X.Rmd` where X is 0 to 8 for the project number.
+These mini projects will have you explore statistical topics using R. For each project, create an R Markdown file. Name your file using the following format: `LastName-X.Rmd` where X is 0 to 8 for the project number. **Please submit a PDF (preferred) or HTML file along with your Rmarkdown file.**
 
 <ol start='0'>
 <li value='0'> <a href='https://htmlpreview.github.io/?https://github.com/jbryer/DATA606/blob/master/inst/labs/Lab0/intro_to_r.html'>Introduction to R and RStudio</a> (<a href='https://github.com/jbryer/DATA606/blob/master/inst/labs/Lab0/intro_to_r.Rmd?raw=true'>Template</a>)</li>
