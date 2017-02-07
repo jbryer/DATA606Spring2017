@@ -36,18 +36,18 @@ $$ Var(X)={ \sigma  }^{ 2 }=\sum _{ i=1 }^{ k }{ { \left( { x }_{ i }-\mu  \righ
 
 ### Lab
 
-The labs are available in the `IS606` R package. To start the first lab, use the `startLab` function. This will copy the lab to your current working directory and rename the file according to your computer username (as returend by `Sys.info()['user']`). If this is incorrect, then either provide the `file-prefix` parameter to `startLab`, or rename the file after it has been copied.
+The labs are available in the `DATA606` R package. To start the first lab, use the `startLab` function. This will copy the lab to your current working directory and rename the file according to your computer username (as returend by `Sys.info()['user']`). If this is incorrect, then either provide the `file-prefix` parameter to `startLab`, or rename the file after it has been copied.
 
 ```{r, eval=FALSE}
-IS606::viewLab('Lab2')
-IS606::startLab('Lab2')
+DATA606::viewLab('Lab2')
+DATA606::startLab('Lab2')
 ```
 
 ## Readings
 
-* [OpenIntro Statistics slides](https://github.com/jbryer/IS606Fall2015/raw/master/Slides/OpenIntro/os2_slides_02.pdf)
+* [OpenIntro Statistics slides](https://github.com/jbryer/DATA606Fall2015/raw/master/Slides/OpenIntro/os2_slides_02.pdf)
 
-* Matloff, N. (2009). [*From Algorithms to Z-Scores: Probabilistic and Statistical Modeling in Computer Science*](https://github.com/jbryer/IS606Fall2015/blob/master/Textbook/ProbStatBook.pdf?raw=true). Available from [http://heather.cs.ucdavis.edu/probstatbook](http://heather.cs.ucdavis.edu/probstatbook).
+* Matloff, N. (2009). [*From Algorithms to Z-Scores: Probabilistic and Statistical Modeling in Computer Science*](https://github.com/jbryer/DATA606Fall2015/blob/master/Textbook/ProbStatBook.pdf?raw=true). Available from [http://heather.cs.ucdavis.edu/probstatbook](http://heather.cs.ucdavis.edu/probstatbook).
 
 
 ## Videos
