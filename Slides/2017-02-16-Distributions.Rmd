@@ -1,0 +1,266 @@
+---
+title: "DATA606 - Distributions"
+author: Jason Bryer, Ph.D.
+date: February 16, 2017
+knit: (function(inputFile, encoding) { input.dir <- normalizePath(dirname(inputFile)); rmarkdown::render(input = inputFile, encoding = encoding, quiet=FALSE, output_file = paste0(input.dir,'/../docs/slides/', tools::file_path_sans_ext(basename(inputFile)), '.html')); })
+output:
+  ioslides_presentation:
+    self_contained: true
+    widescreen: true
+    smaller: true
+---
+	
+<div class="notes">
+Documentation on using ioslides is available here:
+http://rmarkdown.rstudio.com/ioslides_presentation_format.html
+Some slides are adopted (or copied) from OpenIntro: https://www.openintro.org/
+</div>
+
+```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+set.seed(2112)
+library(ggplot2)
+par(mar=c(2.5,1,2,1))
+
+```
+
+
+## Meetup Presentations
+
+* [Georgia G.](http://rpubs.com/galanopoulog/250454) (2.29)
+* [James Kuruvilla](http://rpubs.com/jameskuruvilla/250024) (2.6)
+
+## Coin Tosses Revisited {.flexbox .vcenter}
+
+```{r}
+coins <- sample(c(-1,1), 100, replace=TRUE)
+plot(1:length(coins), cumsum(coins), type='l')
+abline(h=0)
+cumsum(coins)[length(coins)]
+```
+
+## Many Random Samples
+
+```{r}
+samples <- rep(NA, 1000)
+for(i in seq_along(samples)) {
+	coins <- sample(c(-1,1), 100, replace=TRUE)
+	samples[i] <- cumsum(coins)[length(coins)]
+}
+head(samples)
+```
+
+## Histogram of Many Random Samples {.flexbox .vcenter}
+
+```{r, fig.width=8, fig.height=4}
+hist(samples)
+```
+
+## Properties of Distribution 
+
+```{r}
+(m.sam <- mean(samples))
+(s.sam <- sd(samples))
+```
+
+## Properties of Distribution (cont.)
+
+```{r}
+within1sd <- samples[samples >= m.sam - s.sam & samples <= m.sam + s.sam]
+length(within1sd) / length(samples)
+within2sd <- samples[samples >= m.sam - 2 * s.sam & samples <= m.sam + 2* s.sam]
+length(within2sd) / length(samples)
+within3sd <- samples[samples >= m.sam - 3 * s.sam & samples <= m.sam + 3 * s.sam]
+length(within3sd) / length(samples)
+```
+
+
+## Standard Normal Distribution {.flexbox .vcenter}
+
+$$ f\left( x|\mu ,\sigma  \right) =\frac { 1 }{ \sigma \sqrt { 2\pi  }  } { e }^{ -\frac { { \left( x-\mu  \right)  }^{ 2 } }{ { 2\sigma  }^{ 2 } }  } $$
+
+```{r, fig.width=8, fig.height=4}
+x <- seq(-4,4,length=200); y <- dnorm(x,mean=0, sd=1)
+plot(x, y, type = "l", lwd = 2, xlim = c(-3.5,3.5), ylab='', xlab='z-score', yaxt='n')
+```
+
+## Standard Normal Distribution {.flexbox .vcenter}
+
+```{r, fig.width=8, fig.height=4, echo=FALSE}
+x <- seq(-4,4,length=200)
+y <- dnorm(x,mean=0, sd=1)
+plot(x, y, type = "l", lwd = 2, xlim = c(-3.5,3.5), ylab='', xlab='z-score', yaxt='n')
+lb <- -1; ub <- 1
+i <- x >= lb & x <= ub
+polygon(c(lb,x[i],ub), c(0,y[i],0), col="grey90") 
+text(0, .1, "68%")
+```
+
+## Standard Normal Distribution {.flexbox .vcenter}
+
+```{r, fig.width=8, fig.height=4, echo=FALSE}
+x <- seq(-4,4,length=200)
+y <- dnorm(x,mean=0, sd=1)
+plot(x, y, type = "l", lwd = 2, xlim = c(-3.5,3.5), ylab='', xlab='z-score', yaxt='n')
+lb <- -2; ub <- 2
+i <- x >= lb & x <= ub
+polygon(c(lb,x[i],ub), c(0,y[i],0), col="grey90") 
+text(0, .1, "95%")
+```
+
+## Standard Normal Distribution {.flexbox .vcenter}
+
+```{r, fig.width=8, fig.height=4, echo=FALSE}
+x <- seq(-4,4,length=200)
+y <- dnorm(x,mean=0, sd=1)
+plot(x, y, type = "l", lwd = 2, xlim = c(-3.5,3.5), ylab='', xlab='z-score', yaxt='n')
+lb <- -3; ub <- 3
+i <- x >= lb & x <= ub
+polygon(c(lb,x[i],ub), c(0,y[i],0), col="grey90") 
+text(0, .1, "99.7%")
+```
+
+## What's the likelihood of ending with 15?
+
+```{r}
+pnorm(15, mean=mean(samples), sd=sd(samples))
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=4, echo=FALSE}
+x <- seq(-4,4,length=200)
+y <- dnorm(x,mean=0, sd=1)
+plot(x, y, type = "l", lwd = 2, xlim = c(-3.5,3.5), ylab='', xlab='z-score', yaxt='n')
+lb <- min(x); ub <- (15 - mean(samples)) / sd(samples)
+i <- x >= lb & x <= ub
+polygon(c(lb,x[i],ub), c(0,y[i],0), col="grey90") 
+```
+
+## What's the likelihood of ending with 15? {.flexbox .vcenter}
+
+```{r}
+1 - pnorm(15, mean=mean(samples), sd=sd(samples))
+```
+
+```{r, echo=FALSE, fig.width=8, fig.height=4, echo=FALSE}
+x <- seq(-4,4,length=200)
+y <- dnorm(x,mean=0, sd=1)
+plot(x, y, type = "l", lwd = 2, xlim = c(-3.5,3.5), ylab='', xlab='z-score', yaxt='n')
+ub <- max(x); lb <- (15 - mean(samples)) / sd(samples)
+i <- x >= lb & x <= ub
+polygon(c(lb,x[i],ub), c(0,y[i],0), col="grey90") 
+```
+
+## Comparing Scores on Different Scales
+
+￼SAT scores are distributed nearly normally with mean 1500 and stan- dard deviation 300. ACT scores are distributed nearly normally with mean 21 and standard deviation 5. A college admissions officer wants to determine which of the two applicants scored better on their standardized test with respect to the other test takers: Pam, who earned an 1800 on her SAT, or Jim, who scored a 24 on his ACT?
+
+## Z-Scores
+
+* Z-scores are often called standard scores:
+
+$$ Z = \frac{observation - mean}{SD} $$
+
+* Z-Scores have a mean = 0 and standard deviation = 1.
+
+Converting Pam and Jim's scores to z-scores:
+
+$$ Z_{Pam} = \frac{1800 - 1500}{300} = 1 $$
+
+$$ Z_{Jim} = \frac{24-21}{5} = 0.6 $$
+
+## Standard Normal Parameters {.flexbox .vcenter}
+
+```{r, echo=FALSE, fig.width=8, fig.height=3}
+par.orig <- par(mfrow=c(1,2), mar=c(2,1,1.5,1))
+x <- seq(-4,4,length=200)
+y <- dnorm(x,mean=0, sd=1)
+plot(x, y, type = "l", lwd = 2, ylab='', xlab='', yaxt='n', col='green',
+	 main=expression(paste(plain("N("), mu, plain(" = 0, "), sigma, plain(" = 1)"))))
+x <- seq(5,33,length=200)
+y <- dnorm(x,mean=19, sd=4)
+plot(x, y, type = "l", lwd = 2, ylab='', xlab='', yaxt='n', col='blue',
+	 main=expression(paste(plain("N("), mu, plain(" = 19, "), sigma, plain(" = 4)"))))
+par(par.orig)
+
+x <- seq(-4,30,length=200)
+y <- dnorm(x,mean=0, sd=1)
+plot(x, y, type = "l", lwd = 2, xlim = c(-3.5,30), ylab='', xlab='', yaxt='n', col='green')
+x <- seq(-4,30,length=200)
+y <- dnorm(x,mean=19, sd=4)
+lines(x, y, type = "l", lwd = 2, xlim = c(-3.5,30), ylab='', xlab='', yaxt='n', col='blue')
+```
+
+## SAT Variability
+
+SAT scores are distributed nearly normally with mean 1500 and standard deviation 300.
+
+* ∼68% of students score between 1200 and 1800 on the SAT. 
+* ∼95% of students score between 900 and 2100 on the SAT.
+* ∼99.7% of students score between 600 and 2400 on the SAT.
+
+## Evaluating Normal Approximation {.flexbox .vcenter}
+
+```{r, echo=FALSE, results='hide'}
+heights <- c(180.34, 170.18, 175.26, 177.8, 172.72, 160.02, 172.72, 182.88, 177.8, 177.8, 167.64, 180.34, 180.34, 172.72, 165.1, 154.94, 180.34, 172.72, 165.1, 167.64, 182.88, 175.26, 182.88, 177.8, 175.26, 185.42, 175.26, 167.64, 187.96, 175.26, 180.34, 175.26, 198.12, 177.8, 185.42, 175.26, 180.34, 187.96, 182.88, 187.96, 177.8, 182.88, 187.96, 170.18, 182.88, 182.88, 175.26, 170.18, 182.88, 180.34, 180.34, 170.18, 180.34, 187.96, 193.04, 175.26, 193.04, 182.88, 177.8, 167.64, 170.18, 160.02, 172.72, 193.04, 187.96, 190.5, 172.72, 175.26, 193.04, 180.34, 162.56, 187.96, 182.88, 180.34, 177.8, 172.72, 185.42, 180.34, 180.34, 182.88, 185.42, 180.34, 195.58, 185.42, 170.18, 170.18, 172.72, 180.34, 190.5, 172.72, 182.88, 170.18, 177.8, 175.26, 162.56, 162.56, 175.26, 167.64, 170.18, 177.8)/2.54
+```
+
+To use the 68-95-99 rule, we must verify the normality assumption. We will want to do this also later when we talk about various (parametric) modeling. Consider a sample of `r length(heights)` male heights (in inches).
+
+```{r, echo=FALSE, fig.width=8, fig.height=4}
+hist(heights, main=paste0('Male Heights (mean = ', round(mean(heights), digits=1), ', sd = ', round(sd(heights), digits=2), ')'))
+```
+
+
+## Evaluating Normal Approximation {.flexbox .vcenter}
+
+Histogram looks normal, but we can overlay a standard normal curve to help evaluation.
+
+```{r, echo=FALSE, fig.width=8, fig.height=4}
+h <- hist(heights, xlim=c(60, 80))
+x <- seq(min(heights)-5, max(heights)+5, 0.01)
+y <- dnorm(x, mean(heights), sd(heights))
+y <- y * diff(h$mids[1:2]) * length(heights)
+lines(x, y, lwd=1.5, col='blue')
+```
+
+## Normal Q-Q Plot {.columns-2}
+
+```{r, echo=FALSE, fig.width=5, fig.height=5}
+qqnorm(heights, cex=0.5, main='', axes=F, ylab='Male heights (in)', pch=19)
+axis(1)
+axis(2)
+abline(mean(heights), sd(heights), col="blue", lwd=1.5)
+```
+
+* Data are plotted on the y-axis of a normal probability plot, and theoretical quantiles (following a normal distribution) on the x-axis.
+* If there is a linear relationship in the plot, then the data follow a nearly normal distribution.
+* Constructing a normal probability plot requires calculating percentiles and corresponding z-scores for each observation, which is tedious. Therefore we generally rely on software when making these plots.
+
+## Skewness {.flexbox .vcenter}
+
+```{r, echo=FALSE, fig.width=6, fig.height=5}
+set.seed(2112)
+rs <- rgamma(100,1)
+ls <- rbeta(100,3,0.5)
+
+temp <- sort(rnorm(100))
+
+st <- c(temp[16:85], rnorm(30,0,0.1))
+lt <- c(temp[1:20]-rgamma(20,1), temp[21:80], temp[81:100]+rev(rgamma(20,1)))
+
+par.orig <- par(mfrow=c(2,2), mgp=c(2,.7,0), mar=c(1,1,1,1))
+qqnorm(rs, axes=F, xlab="", ylab="", pch=19, main="Right Skewed")
+qqline(rs, col='blue')
+qqnorm(ls, axes=F, xlab="", ylab="", pch=19, main="Left Skewed")
+qqline(rs, col='blue')
+qqnorm(st, axes=F, xlab="", ylab="", pch=19, main="Short Tails")
+qqline(rs, col='blue')
+qqnorm(lt, axes=F, xlab="", ylab="", pch=19, main="Long Tails")
+qqline(rs, col='blue')
+par(par.orig)
+```
+
+## Simulated Normal Q-Q Plots {.flexbox .vcenter}
+
+```{r, fig.width=6, fig.height=5}
+DATA606::qqnormsim(heights)
+```
