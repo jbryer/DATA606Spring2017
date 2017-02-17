@@ -18,7 +18,7 @@ The solutions to the practice problems are at the end of the book and do not nee
 * Chapter 4 Foundations for Inference
 	* Practice: 4.3, 4.13, 4.23, 4.25, 4.39, 4.47
 	* Graded: 4.4, 4.14, 4.24, 4.26, 4.34, 4.40, 4.48
-* Chapter 5 - Inference for Numerical Data=
+* Chapter 5 - Inference for Numerical Data
 	* Practice: 5.5, 5.13, 5.19, 5.31, 5.45
 	* Graded: 5.6, 5.14, 5.20, 5.32, 5.48
 * Chapter 6 - Inference for Categorical Data
