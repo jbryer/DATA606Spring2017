@@ -72,11 +72,11 @@ Failure                                    |      F       |   < 70    |  0   |
 
 This course is conducted entirely online. Each week, you will have various resources made available, including weekly readings from the textbooks and occasionally additional readings provided by the instructor. Most weeks will have homework assignments to be submitted. There will also be a presentation required and a forum post introduction required. You are expected to complete all assignments by their due dates.
 
-Meetup presentations will comprise the solution and presentation to the class of one of the suggested problems for study from the weekly materials (not the graded homework problems). Each student must present one problem throughout the semester. Problems are chosen by entering your name and problem [in the Google Spreadsheet](https://docs.google.com/spreadsheets/d/18JPR5b-0-Oyinj--H6hb8u8BY9QxCv8S4UsCwTGvS9w/edit?usp=sharing). Note there is a maximum of three presentatiosn per meetup and presentations should be no more than five minutes. Additionally, prepare your presentation so that the slides or document (I suggest using R Markdown) will be shared on the course website. Problems are assigned first come, first served, so any problem not already chosen by another student is available.
+Meetup presentations will comprise the solution and presentation to the class of one of the suggested problems for study from the weekly materials (not the graded homework problems). Each student must present one problem throughout the semester. Problems are chosen by entering your name and problem in the Google Spreadsheet. Note there is a maximum of three presentatiosn per meetup and presentations should be no more than five minutes. Additionally, prepare your presentation so that the slides or document (I suggest using R Markdown) will be shared on the course website. Problems are assigned first come, first served, so any problem not already chosen by another student is available.
 
-[Presentation Signup Sheet](https://docs.google.com/spreadsheets/d/18JPR5b-0-Oyinj--H6hb8u8BY9QxCv8S4UsCwTGvS9w/edit?usp=sharing)
+[Presentation Signup Sheet](https://docs.google.com/spreadsheets/d/1geFxr-A0nlhmG36Bd2ftIdYdCZauJJ5xz-Ykq6qI6-M/edit?usp=sharing)
 
-Further details on each of these assignments will be available in Blackboard and/or [this Github repository](https://github.com/jbryer/DATA606Fall2016).
+Further details on each of these assignments will be available in Blackboard and/or [this Github repository](https://github.com/jbryer/DATA606Spring2017).
 
 ## Textbooks
 
