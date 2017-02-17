@@ -55,7 +55,7 @@ Law of large numbers states that as more observations are collected, the proport
 ## Coin Toss Demo
 
 ```{r, eval=FALSE}
-library(IS606)
+library(DATA606)
 shiny_demo('gambler')
 ```
 
