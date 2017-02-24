@@ -4,8 +4,8 @@ title: Project
 permalink: /project/
 ---
 
-* [Download project proposal template](https://raw.githubusercontent.com/jbryer/DATA606Fall2016/master/Project/IS606_proposal_template.Rmd)
-* [Download project template](https://raw.githubusercontent.com/jbryer/DATA606Fall2016/master/Project/IS606_project_template.Rmd)
+* [Download project proposal template](https://raw.githubusercontent.com/jbryer/DATA606Spring2017/master/Project/DATA606_proposal_template.Rmd)
+* [Download project template](https://raw.githubusercontent.com/jbryer/DATA606Spring2017/master/Project/DATA606_project_template.Rmd)
 
 The purpose of the data project is for you to conduct a reproducible analysis with a data set of your choosing. There are two components to the project, the proposal, which will be graded on a pass/fail basis, and the final report. The outline for each of these are provided in the templates. When submitting the assignments, include the R Markdown file (change the name to include your last name, for example `Bryer-Proposal.Rmd` and `Bryer-Project.Rmd`) along with any supplementary files necessary to run the R Markdown file (e.g. data files, screenshots, etc.). Suggestions for possible data sources are included below, however you are free to use data not listed below. The only requirement is that you are allowed to share the data. Projects will be shared with others on this website so should be presented in a way that other students can reproduce your analysis.
 
@@ -22,6 +22,7 @@ The proposal can be more informal using bullet points where necessary and includ
 * Explanatory: What is the explanatory variable(s), and what type is it (numerical/categorival)?
 * Relevant summary statistics 
 
+[Example data project proposal](http://htmlpreview.github.io/?https://github.com/jbryer/DATA606Spring2017/blob/master/Project/Example_proposal.html) ([Source Rmarkdown file](https://raw.githubusercontent.com/jbryer/DATA606Spring2017/master/Project/Example_proposal.Rmd))
 
 ## Final Project Format
 
