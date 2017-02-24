@@ -54,7 +54,7 @@ Date                      | Topic                           | Resources |
 Thursday, Feb 2, 8:00 pm  | Introduction to data            | [Slides](/slides/2017-02-02-Intro_to_Course.html), [Video](https://youtu.be/TEHy3Hyaz5Q)
 March 9                   | NO MEETUP                       | 
 Thursday, Feb 16, 8:00 pm | Distributions Part I            | [Probability Slides](/slides/2017-02-16-Probability.html), [Distributions Slides](/slides/2017-02-16-Distributions.html), [Video](https://youtu.be/WrWeAfuFb3s)
-Thursday, Feb 23, 8:00 pm | Distributions Part II           | 
+Thursday, Feb 23, 8:00 pm | Distributions Part II           | [Slides](/slides/2017-08-23-Distributions2.html), [Video](https://youtu.be/KOQHMHNYpf8)
 Thursday, Mar 2, 8:00 pm  | Foundation for Inference        | 
 Thursday, Mar 9, 8:00 pm  | Foundation for Inference cont.  | 
 Thursday, Mar 16, 8:00 pm | Inference for Numerical Data    | 
