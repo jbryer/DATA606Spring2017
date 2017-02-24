@@ -1,0 +1,162 @@
+---
+title: DATA 606 Data Project Proposal
+author: Jason Bryer, Ph.D.
+---
+
+### Data Preparation
+
+```{r setup, echo=TRUE, results='hide', warning=FALSE, message=FALSE}
+# Load data from IPEDS.
+library(ipeds)
+library(psych)
+
+data(surveys)
+directory <- getIPEDSSurvey('HD', 2013)
+admissions <- getIPEDSSurvey("IC", 2013)
+retention <- getIPEDSSurvey("EFD", 2013)
+
+# There are a lot of columns in these data frames. This will subset the data 
+# frames to include only the variables we are interested in. We will also rename 
+# the columns to be more descriptive.
+directory <- directory[,c('unitid', 'instnm', 'sector', 'control')]
+
+retention <- retention[,c('unitid', 'ret_pcf', 'ret_pcp')]
+names(retention) <- c("unitid", "FullTimeRetentionRate", "PartTimeRetentionRate")
+
+admissions <- admissions[,c('unitid', 'admcon1', 'admcon2', 'admcon7', 
+		'applcn', 'admssn',	'enrlt', 'satnum', 'satpct', 'actnum', 'actpct', 
+		'satvr25', 'satvr75', 'satmt25', 'satmt75', 'satwr25', 'satwr75', 
+		'actcm25', 'actcm75')]
+names(admissions) <- c("unitid", "UseHSGPA", "UseHSRank", 
+		"UseAdmissionTestScores", "ApplicantsTotal", "AdmissionsTotal",  
+		"EnrolledTotal", "NumSATScores", "PercentSATScores", "NumACTScores", 
+		"PercentACTScores", "SATReading25", "SATReading75", "SATMath25", 
+		"SATMath75", "SATWriting25", "SATWriting75", "ACTComposite25", 
+		"ACTComposite75")
+
+# Recode these variables to factors.
+admissionsLabels <- c("Required", 
+					  "Recommended", 
+					  "Neither required nor recommended", 
+					  "Do not know", 
+					  "Not reported", 
+					  "Not applicable")
+admissions$UseHSGPA <- factor(admissions$UseHSGPA, 
+						levels=c(1,2,3,4,-1,-2), 
+						labels=admissionsLabels)
+admissions$UseHSRank <- factor(admissions$UseHSRank, 
+						levels=c(1,2,3,4,-1,-2), 
+						labels=admissionsLabels)
+admissions$UseAdmissionTestScores <- factor(admissions$UseAdmissionTestScores, 
+						levels=c(1,2,3,4,-1,-2), 
+						labels=admissionsLabels)
+
+# Merge the three data frames to one using the unitid column 
+# (unique identifier for the school).
+ret <- merge(directory, admissions, by="unitid")
+ret <- merge(ret, retention, by="unitid")
+
+# Exclude schools that don't have one of these criteria.
+ret <- ret[ret$UseAdmissionTestScores %in% 
+		   	c('Required', 'Recommended', 'Neither required nor recommended'),] 
+
+# IPEDS codes missing values as '.' which means R imports the data as 
+# characters. This will convert those columns to numeric columns and any 
+# instance of '.' will become NA (i.e. R's representation of a missing value).
+ret$SATMath75 <- as.numeric(ret$SATMath75)
+ret$SATMath25 <- as.numeric(ret$SATMath25)
+ret$SATWriting75 <- as.numeric(ret$SATWriting75)
+ret$SATWriting25 <- as.numeric(ret$SATWriting25)
+ret$NumSATScores <- as.integer(ret$NumSATScores)
+
+# Since IPEDS reports the 25th and 75th percentile, we will use the mean of 
+# these two as a proxy of the median (i.e center of the distribution).
+ret$SATMath <- (ret$SATMath75 + ret$SATMath25) / 2
+ret$SATWriting <- (ret$SATWriting75 + ret$SATWriting25) / 2
+ret$SATTotal <- ret$SATMath + ret$SATWriting
+
+# Calculate acceptance rate. This is a proxy for selectivity of the school.
+ret$AcceptanceTotal <- as.numeric(ret$AdmissionsTotal) / 
+	as.numeric(ret$ApplicantsTotal)
+
+# Drop any unused factor levels.
+ret$UseAdmissionTestScores <- as.factor(
+	as.character(ret$UseAdmissionTestScores))
+```
+
+
+### Research question 
+
+**You should phrase your research question in a way that matches up with the scope of inference your dataset allows for.**
+
+Are SAT scores predictive of first year retention?
+
+
+### Cases 
+
+**What are the cases, and how many are there?**
+
+Each case represents a College or University in the united states. There `r nrow(ret)` observations in the given data set.
+
+
+### Data collection 
+
+**Describe the method of data collection.**
+
+Data is collected by the [National Center for Educational Statistics](http://nces.ed.gov//) (NCES) as part of the [Integrated Postsecondary Data System](http://nces.ed.gov/ipeds/) (IPEDS). Data is submitted by Colleges and University annually.
+
+
+### Type of study 
+
+**What type of study is this (observational/experiment)?**
+
+This is an observational study.
+
+
+### Data Source 
+
+**If you collected the data, state self-collected. If not, provide a citation/link.**
+
+Data is collected by NCES and is available online here: http://nces.ed.gov/ipeds/Home/UseTheData For this project, data was extracted using the `ipeds` R package.
+
+Ginder, S.A., Kelly-Reid, J.E., and Mann, F.B. (2014). 2013-14 [*Integrated Postsecondary Education Data System (IPEDS)
+Methodology Report*](http://nces.ed.gov/pubs2014/2014067.pdf) (NCES 2014-067). U.S. Department of Education. Washington, DC: National Center for Education Statistics. Retrieved [date] from http://nces.ed.gov/pubsearch.
+
+
+### Response 
+
+**What is the response variable, and what type is it (numerical/categorical)?**
+
+The response variable is first year retention and is numerical.
+
+
+### Explanatory 
+
+**What is the explanatory variable, and what type is it (numerical/categorival)?**
+
+The explanatory variable is median SAT score and is numerical.
+
+
+### Relevant summary statistics 
+
+**Provide summary statistics relevant to your research question. For example, if you’re comparing means across groups provide means, SDs, sample sizes of each group. This step requires the use of R, hence a code chunk is provided below. Insert more code chunks as needed.**
+
+```{r}
+describe(ret$SATTotal)
+describe(ret$FullTimeRetentionRate)
+
+table(ret$UseAdmissionTestScores, useNA='ifany')
+prop.table(table(ret$UseAdmissionTestScores, useNA='ifany')) * 100
+
+describeBy(ret$FullTimeRetentionRate, 
+		   group = ret$UseAdmissionTestScores, mat=TRUE)
+```
+
+```{r, warning=FALSE, message=FALSE, fig.width=5, fig.height=3}
+ggplot(ret, aes(x=SATTotal)) + geom_histogram()
+```
+
+```{r, warning=FALSE, message=FALSE, fig.width=5, fig.height=3}
+ggplot(ret, aes(x=FullTimeRetentionRate)) + geom_histogram()
+```
+
