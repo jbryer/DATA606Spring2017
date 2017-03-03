@@ -1,0 +1,216 @@
+---
+title: "DATA606 - Foundation for Inference"
+author: Jason Bryer, Ph.D.
+date: March 2, 2017
+knit: (function(inputFile, encoding) { input.dir <- normalizePath(dirname(inputFile)); rmarkdown::render(input = inputFile, encoding = encoding, quiet=FALSE, output_file = paste0(input.dir,'/../docs/slides/', tools::file_path_sans_ext(basename(inputFile)), '.html')); })
+output:
+  ioslides_presentation:
+    self_contained: true
+    widescreen: true
+    smaller: true
+---
+	
+<div class="notes">
+Documentation on using ioslides is available here:
+http://rmarkdown.rstudio.com/ioslides_presentation_format.html
+Some slides are adopted (or copied) from OpenIntro: https://www.openintro.org/
+</div>
+
+```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+set.seed(2112)
+library(ggplot2)
+library(openintro)
+library(DATA606)
+par(mar=c(2.5,1,2,1))
+
+```
+
+
+
+## Population Distribution (Uniform)
+
+```{r}
+n <- 1e5
+pop <- runif(n, 0, 1)
+mean(pop)
+```
+
+<center>
+```{r, echo=FALSE, fig.width=8,fig.height=3.5}
+d <- density(pop)
+h <- hist(pop, plot=FALSE)
+hist(pop, main='Population Distribution', xlab="", freq=FALSE, 
+     ylim=c(0, max(d$y, h$density)+.5), col=COL[1,2], border = "white", 
+	 cex.main = 1.5, cex.axis = 1.5, cex.lab = 1.5)
+lines(d, lwd=3)
+```
+</center>
+
+
+
+## Random Sample (n=10)
+
+```{r, fig.width=10, fig.height=5}
+samp1 <- sample(pop, size=10)
+mean(samp1)
+```
+
+<center>
+```{r, fig.width=8,fig.height=3.5}
+hist(samp1)
+```
+</center>
+
+## Random Sample (n=30)
+
+```{r, fig.width=8,fig.height=3.5}
+samp2 <- sample(pop, size=30)
+mean(samp2)
+```
+
+<center>
+```{r, fig.width=8,fig.height=3.5}
+hist(samp2)
+```
+</center>
+
+## Lots of Random Samples
+
+```{r, echo=TRUE}
+M <- 1000
+samples <- numeric(length=M)
+for(i in seq_len(M)) {
+	samples[i] <- mean(sample(pop, size=30))
+}
+head(samples, n=8)
+```
+
+
+## Sampling Distribution
+
+<center>
+```{r, fig.width=10, fig.height=5}
+hist(samples)
+```
+</center>
+
+
+## Central Limit Theorem (CLT)
+
+Let $X_1$, $X_2$, ..., $X_n$ be independent, identically distributed random variables with mean $\mu$ and variance $\sigma^2$, both finite. Then for any constant $z$,
+
+$$ \underset { n\rightarrow \infty  }{ lim } P\left( \frac { \bar { X } -\mu  }{ \sigma /\sqrt { n }  } \le z \right) =\Phi \left( z \right)  $$
+
+where $\Phi$ is the cumulative distribution function (cdf) of the standard normal distribution.
+
+
+## In other words...
+
+The distribution of the sample mean is well approximated by a normal model:
+
+$$ \bar { x } \sim N\left( mean=\mu ,SE=\frac { \sigma  }{ \sqrt { n }  }  \right)  $$
+
+where SE represents the **standard error**, which is defined as the standard deviation of the sampling distribution. In most cases $\sigma$ is not known, so use $s$.
+
+
+## CLT Shiny App
+
+```{r, eval=FALSE}
+shiny_demo('CLT_mean')
+```
+
+## Standard Error and Confidence Interval
+
+```{r}
+samp2 <- sample(pop, size=30)
+mean(samp2)
+(samp2.se <- sd(samp2) / sqrt(length(samp2)))
+```
+
+The confidence interval is then $\mu \pm 2 \times SE$
+
+```{r}
+(samp2.ci <- c(mean(samp2) - 2 * samp2.se, mean(samp2) + 2 * samp2.se))
+```
+
+## Confidence Intervals
+
+We are 95% confident that the true population mean is between `r samp2.ci`. 
+
+That is, if we were to take 100 random samples, we would expect at least 95% of those samples to have a mean within `r samp2.ci`.
+
+```{r}
+ci <- data.frame(mean=numeric(), min=numeric(), max=numeric())
+for(i in seq_len(100)) {
+	samp <- sample(pop, size=30)
+	se <- sd(samp) / sqrt(length(samp))
+	ci[i,] <- c(mean(samp),
+				mean(samp) - 2 * se, 
+				mean(samp) + 2 * se)
+}
+ci$sample <- 1:nrow(ci)
+ci$sig <- ci$min < 0.5 & ci$max > 0.5
+```
+
+
+## Confidence Intervals 
+
+```{r, eval=TRUE, fig.width=10, fig.height=4}
+ggplot(ci, aes(x=min, xend=max, y=sample, yend=sample, color=sig)) + 
+	geom_vline(xintercept=0.5) + 
+	geom_segment() + xlab('CI') + ylab('') +
+	scale_color_manual(values=c('TRUE'='grey', 'FALSE'='red'))
+```
+
+
+
+## Hypothesis Testing
+
+* We start with a null hypothesis ($H_0$) that represents the status quo.
+* We also have an alternative hypothesis ($H_A$) that represents our research question, i.e. what we’re testing for.
+* We conduct a hypothesis test under the assumption that the null hypothesis is true, either via simulation or traditional methods based on the central limit theorem.
+* If the test results suggest that the data do not provide convincing evidence for the alternative hypothesis, we stick with the null hypothesis. If they do, then we reject the null hypothesis in favor of the alternative.
+
+
+## Hypothesis Testing (using CI)
+
+$H_0$: The mean of `samp2` = 0.5  
+$H_A$: The mean of `samp2` $\ne$ 0.5
+
+Using confidence intervals, if the *null* value is within the confidence interval, then we *fail* to reject the *null* hypothesis.
+
+```{r}
+(samp2.ci <- c(mean(samp2) - 2 * sd(samp2) / sqrt(length(samp2)),
+			   mean(samp2) + 2 * sd(samp2) / sqrt(length(samp2))))
+```
+
+Since 0.5 fall within `r samp2.ci`, we *fail* to reject the null hypothesis.
+
+
+## Hypothesis Testing (using *p*-values)
+
+$$ \bar { x } \sim N\left( mean=0.49,SE=\frac { 0.27 }{ \sqrt { 30 } = 0.049 }  \right)  $$
+
+$$ Z=\frac { \bar { x } -null }{ SE } =\frac { 0.49-0.50 }{ 0.049 } = -.204081633 $$
+
+```{r}
+pnorm(-.204) * 2
+```
+
+## Hypothesis Testing (using *p*-values)
+
+<center>
+```{r, fig.width=10, fig.height=5}
+normalPlot(bounds=c(-.204, .204), tails=TRUE)
+```
+</center>
+
+
+## Type I and II Errors
+
+* Type I Error: **Rejecting** the null hypothesis when it is **true**.
+* Type II Error: **Failing to reject** the null hypothesis when it is **false**.
+
+Visualizing Type I and Type II errors: [http://shiny.albany.edu/stat/betaprob/](http://shiny.albany.edu/stat/betaprob/)
+
+
