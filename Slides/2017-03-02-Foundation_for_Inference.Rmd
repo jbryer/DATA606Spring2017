@@ -205,12 +205,3 @@ normalPlot(bounds=c(-.204, .204), tails=TRUE)
 ```
 </center>
 
-
-## Type I and II Errors
-
-* Type I Error: **Rejecting** the null hypothesis when it is **true**.
-* Type II Error: **Failing to reject** the null hypothesis when it is **false**.
-
-Visualizing Type I and Type II errors: [http://shiny.albany.edu/stat/betaprob/](http://shiny.albany.edu/stat/betaprob/)
-
-
