@@ -1,0 +1,367 @@
+---
+title: "DATA606 - Inference for <br />Numerical Data"
+author: Jason Bryer, Ph.D.
+date: March 16, 2017
+knit: (function(inputFile, encoding) { input.dir <- normalizePath(dirname(inputFile)); rmarkdown::render(input = inputFile, encoding = encoding, quiet=FALSE, output_file = paste0(input.dir,'/../docs/slides/', tools::file_path_sans_ext(basename(inputFile)), '.html')); })
+output:
+  ioslides_presentation:
+    self_contained: true
+    widescreen: true
+    smaller: true
+---
+
+<style>
+.codefont pre {
+    font-size: 12px;
+    line-height: 10px;
+}
+</style>
+
+<div class="notes">
+Documentation on using ioslides is available here:
+http://rmarkdown.rstudio.com/ioslides_presentation_format.html
+Some slides are adopted (or copied) from OpenIntro: https://www.openintro.org/
+</div>
+
+```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+set.seed(2112)
+library(ggplot2)
+library(openintro)
+library(DATA606)
+library(reshape2)
+library(psych)
+library(granova)
+par(mar=c(2.5,1,2,1))
+
+```
+
+## Announcements
+
+* There will be **NO MEETUP next Thursday**, March 23rd.
+* If you need a few extra days for the data project proposal, you can submit the proposals by Friday, March 24th.
+
+## Meetup Presentations
+
+* [Daniel Thonn](http://rpubs.com/danthonn/259126) (5.13)
+
+## High School & Beyond Survey  {.flexbox .vcenter}
+
+`r nrow(hsb2)` randomly selected students completed the reading and writing test of the High School and Beyond survey. The results appear to the right. Does there appear to be a difference?
+
+```{r, fig.width=5, fig.height=3.7, eval=TRUE}
+data(hsb2) # in openintro package
+hsb2.melt <- melt(hsb2[,c('id','read', 'write')], id='id')
+ggplot(hsb2.melt, aes(x=variable, y=value)) + 	geom_boxplot() + 
+	geom_point(alpha=0.2, color='blue') + xlab('Test') + ylab('Score')
+```
+
+
+## High School & Beyond Survey  {.flexbox .vcenter}
+
+```{r}
+head(hsb2)
+```
+
+Are the reading and writing scores of each student independent of each other?
+
+
+## Analyzing Paired Data  {.flexbox .vcenter}
+
+* When two sets of observations are not independent, they are said to be paired.
+* To analyze these type of data, we often look at the difference.
+
+```{r, fig.width=6, fig.height=4}
+hsb2$diff <- hsb2$read - hsb2$write
+head(hsb2$diff)
+```
+
+```{r, fig.width=6, fig.height=3}
+hist(hsb2$diff)
+```
+
+
+## Setting the Hypothesis
+
+What are the hypothesis for testing if there is a difference between the average reading and writing scores?
+
+$H_0$: There is no difference between the average reading and writing scores.
+
+$$\mu_{diff} = 0$$
+
+$H_A$: There is a difference between the average reading and writing score.
+
+$$\mu_{diff} \ne 0$$
+
+## Nothing new here...
+
+* The analysis is no different that what we have done before.
+* We have data from one sample: differences.
+* We are testing to see if the average difference is different that 0.
+
+## Calculating the test-statistic and the p-value {.flexbox .vcenter}
+
+The observed average difference between the two scores is `r mean(hsb2$diff)` points and the standard deviation of the difference is `r sd(hsb2$diff)` points. Do these data provide confincing evidence of a difference between the average scores ont eh two exams (use $\alpha = 0.05$)?
+
+```{r, fig.width=6, fig.height=3.5, echo=FALSE}
+meanDiff <- mean(hsb2$diff)
+sdDiff <- sd(hsb2$diff)
+normalPlot(mean=0, bounds=c(-1 * abs(meanDiff), abs(meanDiff)), tails=TRUE)
+```
+
+## Calculating the test-statistic and the p-value {.flexbox .vcenter}
+
+$$Z = \frac{-0.545 - 0}{ \frac{8.887}{\sqrt{200}} } = \frac{-0.545}{0.628} = -0.87$$
+$$p-value = 0.1949 \times 2 = 0.3898$$
+
+Since p-value > 0.05, we fail to reject the null hypothesis. That is, the data do not provide evidence that there is a statistically significant difference between the average reading and writing scores.
+
+```{r}
+2 * pnorm(mean(hsb2$diff), mean=0, sd=sd(hsb2$diff)/sqrt(nrow(hsb2)))
+```
+
+## Interpretation of the p-value
+
+The probability of obtaining a random sample of 200 students where the average difference between the reading and writing scores is at least 0.545 (in either direction), if in fact the true average difference between the score is 0, is 38%.
+
+## Calculating 95% Confidence Interval
+
+$$-0.545\pm 1.96\frac { 8.887 }{ \sqrt { 200 }  } =-0.545\pm 1.96\times 0.628=(-1.775, 0.685)$$
+
+Note that the confidence interval spans zero!
+
+## SAT Scores by Gender
+
+```{r}
+data(sat)
+head(sat)
+```
+
+```{r, echo=FALSE, results='hide', warning=FALSE}
+sat$Math.SAT <- as.integer(sat$Math.SAT)
+sat <- sat[complete.cases(sat),]
+```
+
+Is there a difference in math scores between males and females?
+
+## SAT Scores by Gender {.flexbox .vcenter}
+
+
+```{r}
+describeBy(sat$Math.SAT, group=sat$Sex, mat=TRUE, skew=FALSE)[,c(2,4:7)]
+```
+
+```{r, fig.width=4.5, fig.height=3}
+ggplot(sat, aes(x=Sex, y=Math.SAT)) + geom_boxplot()
+```
+
+## Distributions  {.flexbox .vcenter}
+
+
+```{r, fig.width=6, fig.height=4}
+ggplot(sat, aes(x=Math.SAT)) + geom_histogram(binwidth=50) + facet_wrap(~ Sex)
+```
+
+## 95% Confidence Interval
+
+We wish to calculate a 95% confidence interval for the average difference between SAT scores for males and females.
+
+Assumptions:
+
+1. Independence within groups.
+2. Independence between groups.
+3. Sample size/skew
+
+## Confidence Interval for Difference Between Two Means
+
+* All confidence intervals have the same form: point estimate ± ME
+* And all ME = critical value × SE of point estimate
+* In this case the point estimate is $\bar{x}_1 - \bar{x}_2$
+Since the sample sizes are large enough, the critical value is z*
+So the only new concept is the standard error of the difference between two means...
+
+Standard error of the difference between two sample means
+
+$$ SE_{ (\bar { x } _{ 1 }-\bar { x } _{ 2 }) }=\sqrt { \frac { { s }_{ 1 }^{ 2 } }{ { n }_{ 1 } } +\frac { { s }_{ 2 }^{ 2 } }{ { n }_{ 2 } }  }  $$
+
+
+## Confidence Interval for Difference in SAT Scores
+
+$$ SE_{ (\bar { x } _{ 1 }-\bar { x } _{ 2 }) }=\sqrt { \frac { { s }_{ M }^{ 2 } }{ { n }_{ M } } + \frac { { s }_{ F }^{ 2 } }{ { n }_{ F } }  } = \sqrt { \frac { 90.4 }{ 80 } +\frac { 103.7 }{ 82 }  } =1.55 $$
+ 
+
+
+```{r, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+require(ggplot2)
+require(gdata)
+require(psych)
+require(granova)
+require(granovaGG)
+require(lattice)
+data(singer)
+data(rat)
+hand <- read.csv('../Data/Hand_washing.csv')
+```
+
+## Analysis of Variance (ANOVA)
+
+The goal of ANOVA is to test whether there is a discernible difference between the means of several groups.
+
+#### Example
+
+Is there a difference between washing hands with:  water only, regular soap, antibacterial soap (ABS), and antibacterial spray (AS)?
+
+* Each tested with 8 replications
+* Treatments randomly assigned
+
+For ANOVA:
+
+* The means all differ.
+* Is this just natural variability?
+* Null hypothesis:  All themeans are the same.
+* Alternative hypothesis:  The means are not all the same.
+
+
+## Hand Washing Comparison {.flexbox .vcenter}
+
+
+```{r hand-boxplot, fig.width=5, fig.height=5, tidy=FALSE}
+ggplot(hand, aes(x=Method, y=Bacterial.Counts)) + geom_boxplot()
+```
+
+## Hand Washing Comparison (cont.) {.flexbox .vcenter}
+
+```{r, tidy=FALSE}
+desc <- describeBy(hand$Bacterial.Counts, hand$Method, mat=TRUE)[,c(2,4,5,6)]
+desc$Var <- desc$sd^2
+print(desc, row.names=FALSE)
+```
+
+
+## Washing type all the same?
+
+* $H_0: \mu_1 = \mu_2 = \mu_3 = \mu_4$
+* By Central Limit Theorem:   
+$$ Var(\bar{y}) = \frac{\sigma^2}{n} = \frac{\sigma^2}{8} $$
+* Variance of {37.5, 92.5, 106.0, 117.0} is 1245.08.
+* $\frac{\sigma^2}{8} = 1245.08$
+* $\sigma^2 = 9960.64$
+* This estimate for $\sigma^2$ is called the Treatment Mean Square, Between Mean Square, or $MS_T$
+* Is this very high compared to what we would expect?
+
+
+## How can we decide what $\sigma^2$ should be?
+
+* Assume each washing method has the same variance.
+* Then we can pool them all together to get the pooled variance ${ s }_{ p }^{ 2 }$
+* Since the sample sizes are all equal, we can average the four variances: ${ s }_{ p }^{ 2 } = 1410.10$
+* Other names for ${ s }_{ p }^{ 2 }$:  Error Mean Square, Within Mean Square, $MS_E$.
+
+
+## Comparing $MS_T$ (between) and $MS_E$ (within)
+
+$MS_T$
+
+* Estimates $s^2$ if $H_0$ is true
+* Should be larger than $s^2$ if $H_0$ is false
+
+$MS_E$
+
+* Estimates $s^2$ whether $H_0$ is true or not
+* If $H_0$ is true, both close to $s^2$, so $MS_T$ is close to $MS_E$
+
+Comparing
+
+* If $H_0$ is true, $\frac{MS_T}{MS_E}$ should be close to 1
+* If $H_0$ is false, $\frac{MS_T}{MS_E}$ tends to be > 1
+
+
+## The F-Distribution {.flexbox .vcenter}
+
+* How do we tell whether $\frac{MS_T}{MS_E}$ is larger enough to not be due just to random chance
+* $\frac{MS_T}{MS_E}$ follows the F-Distribution
+	* Numerator df:  k – 1 (k = number of groups)
+	* Denominator df:  k(n – 1)  
+	* n = # observations in each group
+* $F = \frac{MS_T}{MS_E}$ is called the F-Statistic.
+
+A Shiny App by Dr. Dudek to explore the F-Distribution: <a href='http://shiny.albany.edu/stat/fdist/' window='_new'>http://shiny.albany.edu/stat/fdist/</a>
+
+## The F-Distribution (cont.) {.flexbox .vcenter}
+
+```{r fdistribution, fig.width=7, fig.height=4, tidy=FALSE}
+df.numerator <- 4 - 1
+df.denominator <- 4 * (8 - 1)
+plot(function(x)(df(x,df1=df.numerator,df2=df.denominator)),
+	 xlim=c(0,5), xlab='x', ylab='f(x)', main='F-Distribution')
+```
+
+
+## Back to Bacteria
+
+* $MS_T = 9960.64$
+* $MS_E = 1410.14$
+* Numerator df = 4 – 1 = 3
+* Denominator df = 4(8 – 1) = 28.
+
+
+```{r}
+(f.stat <- 9960.64 / 1410.14)
+1 - pf(f.stat, 3, 28)
+```
+
+#### P-value for $F_{3,28} = 0.0011$ ###
+
+## Assumptions and Conditions
+
+* To check the assumptions and conditions for ANOVA, always look at  the side-by-side boxplots.
+	* Check for outliers within any group.
+	* Check for similar spreads.
+	* Look for skewness.
+	* Consider re-expressing.
+* Independence Assumption
+	* Groups must be independent of each other.
+	* Data within each group must be independent.
+	* Randomization Condition
+* Equal Variance Assumption
+	* In ANOVA, we pool the variances.  This requires equal variances from each group:  Similar Spread Condition.
+
+
+## ANOVA in R
+
+```{r}
+aov.out <- aov(Bacterial.Counts ~ Method, data=hand)
+summary(aov.out)
+```
+
+
+## Graphical ANOVA {.flexbox .vcenter}
+
+```{r hand-granova, echo=TRUE, fig.width=4.75, fig.height=4.75}
+hand.anova <- granova.1w(hand$Bacterial.Counts, group=hand$Method)
+```
+
+## Graphical ANOVA 
+
+
+```{r, fig.width=4.5, fig.height=4.5}
+hand.anova
+```
+
+
+## What Next? 
+
+* P-value large → Nothing left to say
+* P-value small → Which means are large and which means are small?
+* We can perform a t-test to compare two of them.
+* We assumed the standard deviations are all equal.
+* Use $s_p$, for pooled standard deviations.
+* Use the Students t-model, df = N – k.
+* If we wanted to do a t-test for each pair:
+	* P(Type I Error) = 0.05 for each test.
+	* Good chance at least one will have a Type I error.
+* Bonferroni to the rescue!  
+	* Adjust a to $\alpha/J$ where J is the number of comparisons.
+	* 95% confidence (1 – 0.05) with 3 comparisons adjusts to (1 – 0.05/3) ≈ 0.98333.
+	* Use this adjusted value to find t**.
+
+

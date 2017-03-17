@@ -57,7 +57,7 @@ Thursday, Feb 16, 8:00 pm | Distributions Part I            | [Probability Slide
 Thursday, Feb 23, 8:00 pm | Distributions Part II           | [Slides](/slides/2017-02-23-Distributions2.html), [Video](https://youtu.be/KOQHMHNYpf8)
 Thursday, Mar 2, 8:00 pm  | Foundation for Inference        | [Slides](/slides/2017-03-02-Foundation_for_Inference.html), [Video](https://youtu.be/RPz1FZqKDlo)
 Thursday, Mar 9, 8:00 pm  | Foundation for Inference cont.  | [Slides](/slides/2017-03-09-Foundation_for_Inference2.html), [Video](https://youtu.be/IC4k51iPTGI)
-Thursday, Mar 16, 8:00 pm | Inference for Numerical Data    | 
+Thursday, Mar 16, 8:00 pm | Inference for Numerical Data    | [Slides](/slides/2017-03-16-Inference_for_Numerical_Data.html), [Video](https://youtu.be/vYRyiNjLw6c)
 March 23                  | NO MEETUP                       | 
 Thursday, Mar 30, 8:00pm  | Inference for Categorical Data  |
 Thursday, Apr 6, 8:00 pm  | Linear Regression               | 
