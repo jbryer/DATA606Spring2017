@@ -1,0 +1,196 @@
+---
+title: "DATA606 - Linear Regression<br/>Part 2"
+author: Jason Bryer, Ph.D.
+date: April 20, 2017
+knit: (function(inputFile, encoding) { input.dir <- normalizePath(dirname(inputFile)); rmarkdown::render(input = inputFile, encoding = encoding, quiet=FALSE, output_file = paste0(input.dir,'/../docs/slides/', tools::file_path_sans_ext(basename(inputFile)), '.html')); })
+output:
+  ioslides_presentation:
+    self_contained: true
+    widescreen: true
+    smaller: true
+---
+	
+<div class="notes">
+Documentation on using ioslides is available here:
+http://rmarkdown.rstudio.com/ioslides_presentation_format.html
+Some slides are adopted (or copied) from OpenIntro: https://www.openintro.org/
+</div>
+
+```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+set.seed(2112)
+library(ggplot2)
+library(openintro)
+library(DATA606)
+library(reshape2)
+library(psych)
+library(reshape2)
+options(width=100)
+par(mar=c(2.5,1,2,1))
+
+```
+
+## Presentations
+
+* [Kyle Gilde](http://rpubs.com/kylegilde/D-606-Linear-Regression-Presentation) (7.29)
+* [Ilya Kats](http://rpubs.com/ilyakats/data606presentation) (7.35)
+* Michael Muller (7.39)
+
+## Correlations Revisited
+
+http://shiny.albany.edu/stat/rectangles/
+
+
+## NYS Report Card
+
+NYS publishes data for each school in the state. We will look at the grade 8 math scores for 2012 and 2013. 2013 was the first year the tests were aligned with the Common Core Standards. There was a lot of press about how the passing rates for most schools dropped. Two questions we wish to answer:
+
+1. Did the passing rates drop in a predictable manner?
+2. Were the drops different for charter and public schools?
+
+```{r}
+load('../Data/NYSReportCard-Grade7Math.Rda')
+head(reportCard, n=4)
+```
+
+
+## Descriptive Statistics
+
+```{r}
+summary(reportCard$Pass2012)
+summary(reportCard$Pass2013)
+```
+
+## Histograms {.flexbox .vcenter}
+
+```{r, warning=FALSE, fig.width=8, fig.height=4.4, warning=FALSE, message=FALSE}
+melted <- melt(reportCard[,c('Pass2012', 'Pass2013')])
+ggplot(melted, aes(x=value)) + geom_histogram() + facet_wrap(~ variable, ncol=1)
+```
+
+## Log Transformation
+
+Since the distribution of the 2013 passing rates is skewed, we can log transfor that variable to get a more reasonably normal distribution.
+
+```{r, fig.width=8, fig.height=4.0}
+reportCard$LogPass2013 <- log(reportCard$Pass2013 + 1)
+ggplot(reportCard, aes(x=LogPass2013)) + geom_histogram(binwidth=0.5)
+```
+
+## Scatter Plot {.flexbox .vcenter}
+
+```{r, echo=TRUE, fig.width=6.5, fig.height=4.5, warning=FALSE}
+ggplot(reportCard, aes(x=Pass2012, y=Pass2013, color=Charter)) + 
+	geom_point(alpha=0.5) + coord_equal() + ylim(c(0,100)) + xlim(c(0,100))
+```
+
+## Scatter Plot (log transform) {.flexbox .vcenter}
+
+```{r, echo=TRUE, fig.width=6.5, fig.height=4.5, warning=FALSE}
+ggplot(reportCard, aes(x=Pass2012, y=LogPass2013, color=Charter)) + 
+	geom_point(alpha=0.5) + xlim(c(0,100)) + ylim(c(0, log(101)))
+```
+
+## Correlation
+
+```{r}
+cor.test(reportCard$Pass2012, reportCard$Pass2013)
+```
+
+
+## Correlation (log transform)
+
+```{r}
+cor.test(reportCard$Pass2012, reportCard$LogPass2013)
+```
+
+## Linear Regression
+
+```{r}
+lm.out <- lm(Pass2013 ~ Pass2012, data=reportCard)
+summary(lm.out)
+```
+
+## Linear Regression (log transform)
+
+```{r}
+lm.log.out <- lm(LogPass2013 ~ Pass2012, data=reportCard)
+summary(lm.log.out)
+```
+
+## Did the passing rates drop in a predictable manner?
+
+Yes! Whether we log tranform the data or not, the correlations are statistically significant with regression models with $R^2$ creater than 62%.
+
+To answer the second question, whether the drops were different for public and charter schools, we'll look at the residuals.
+
+```{r}
+reportCard$residuals <- resid(lm.out)
+reportCard$residualsLog <- resid(lm.log.out)
+```
+
+## Distribution of Residuals {.flexbox .vcenter}
+
+```{r, fig.width=8, fig.height=4.5}
+ggplot(reportCard, aes(x=residuals, color=Charter)) + geom_density()
+```
+
+## Distribution of Residuals {.flexbox .vcenter}
+
+```{r, fig.width=8, fig.height=4.5}
+ggplot(reportCard, aes(x=residualsLog, color=Charter)) + geom_density()
+```
+
+## Null Hypothesis Testing
+
+$H_0$: There is no difference in the residuals between charter and public schools.
+
+$H_A$: There is a difference in the residuals between charter and public schools.
+
+```{r}
+t.test(residuals ~ Charter, data=reportCard)
+```
+
+## Null Hypothesis Testing (log transform)
+
+```{r}
+t.test(residualsLog ~ Charter, data=reportCard)
+```
+
+## Quadratic Models
+
+It is possible to fit quatric models fairly easily in R, say of the following form:
+
+$$ y = b_1 x^2 + b_0 $$
+
+```{r}
+quad.out <- lm(Pass2013 ~ I(Pass2012^2), data=reportCard)
+summary(quad.out)$r.squared
+summary(lm.out)$r.squared
+```
+
+## Quadratic Models
+
+```{r}
+summary(quad.out)
+```
+
+## Scatter Plot {.flexbox .vcenter}
+
+```{r, echo=TRUE, fig.width=6.5, fig.height=4.5, warning=FALSE}
+ggplot(reportCard, aes(x=Pass2012, y=Pass2013)) + 
+	geom_point(alpha=0.2) + geom_smooth(method='lm', formula=y~poly(x,2,raw=TRUE), size=3) +
+	coord_equal() + ylim(c(0,100)) + xlim(c(0,100))
+```
+
+
+
+## Shiny App
+
+```{r, eval=FALSE}
+shiny::runGitHub('NYSchools','jbryer',subdir='NYSReportCard')
+```
+
+
+See also the Github repository for more information: https://github.com/jbryer/NYSchools
+
+

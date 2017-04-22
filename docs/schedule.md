@@ -62,7 +62,7 @@ March 23                  | NO MEETUP                       |
 Thursday, Mar 30, 8:00pm  | Inference for Categorical Data  | [Slides](/slides/2017-03-30-Inference_for_Categorical_Data.html), [Video](https://youtu.be/Znx90ScssPM), [It’s Time To Retire the "n ≥ 30"" Rule](https://78462f86-a-3bb57111-s-sites.googlegroups.com/a/timhesterberg.net/www/articles/JSM08-n30.pdf?attachauth=ANoY7co8kdoQ-uRVgyqlkLU8gSIPTeCbrZXEZrIiA2ejErFsgu55hOCt4ez0lHLfcQcLF1V_RNNFQAVE5rTnhfh56DoDiKH1JE20AZd5a8ZWYA9VfczdAd0_nnnADcrPM7uWpDM4GRtuor2fkNbz8kqSIeXQBARIFk9jizr23EDss-12nqPgVtzdvLhQkuzDV7LMU1mMHQG0U7Fv959t_c5zMbj5REW3aQ%3D%3D&attredirects=0), [rpsychi Package](https://cran.r-project.org/web/packages/rpsychi/index.html)
 Thursday, Apr 6, 8:00 pm  | Linear Regression               | [Slides](/slides/2017-04-06-Linear_Regression.html) Sorry, no video this week. Email with questions.
 April 13                  | NO MEETUP - Spring Recess       |
-Thrusday, Apr 20, 8:00 pm | Linear Regression cont.         |
+Thrusday, Apr 20, 8:00 pm | Linear Regression cont.         | [Slides](/slides/2017-04-06-Linear_Regression2.html), [Video](https://youtu.be/3oqkY9OIBA4)
 April 27                  | NO MEETUP                       |
 Thursday, May 4, 8:00 pm  | Multiple & Logistic Regression  | 
 Thursday, May 11, 8:00 pm | Intro to Bayesian Analysis      | 
