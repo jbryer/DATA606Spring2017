@@ -64,6 +64,6 @@ Thursday, Apr 6, 8:00 pm  | Linear Regression               | [Slides](/slides/2
 April 13                  | NO MEETUP - Spring Recess       |
 Thrusday, Apr 20, 8:00 pm | Linear Regression cont.         | [Slides](/slides/2017-04-06-Linear_Regression2.html), [Video](https://youtu.be/3oqkY9OIBA4)
 April 27                  | NO MEETUP                       |
-Thursday, May 4, 8:00 pm  | Multiple & Logistic Regression  | 
+Thursday, May 4, 8:00 pm  | Multiple & Logistic Regression  | [Slides](/slides/2017-05-04-Multiple_Regression.html), [Video](https://youtu.be/US78sM4diDE)
 Thursday, May 11, 8:00 pm | Intro to Bayesian Analysis      | 
 
