@@ -1,0 +1,185 @@
+---
+title: "DATA606 - Intro to Bayesian Analysis"
+author: Jason Bryer, Ph.D.
+date: May 11, 2017
+knit: (function(inputFile, encoding) { input.dir <- normalizePath(dirname(inputFile)); rmarkdown::render(input = inputFile, encoding = encoding, quiet=FALSE, output_file = paste0(input.dir,'/../docs/slides/', tools::file_path_sans_ext(basename(inputFile)), '.html')); })
+output:
+  ioslides_presentation:
+    self_contained: true
+    widescreen: true
+    smaller: true
+---
+	
+<div class="notes">
+Documentation on using ioslides is available here:
+http://rmarkdown.rstudio.com/ioslides_presentation_format.html
+Some slides are adopted (or copied) from OpenIntro: https://www.openintro.org/
+</div>
+
+```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+set.seed(2112)
+library(ggplot2)
+library(openintro)
+library(DATA606)
+library(reshape2)
+library(psych)
+library(reshape2)
+library(xtable)
+options(width=100)
+par(mar=c(2.5,1,2,1))
+
+```
+
+
+## Meetup Presentations
+
+* Duubar Villalobos Jimenez (6.5)
+* [Jaideep Mehta](http://rpubs.com/jmehta753/DATA606_Pres1) (7.30)
+* [Matheesha Thambeliyagodage](http://rpubs.com/mathsanu71/DATA606_Meetup_Presentation) (6.11)
+* Kelly Shaffer (4.4): https://youtu.be/oRep3yUpEFs
+
+## Bayesian Analysis
+
+
+<img src='http://ecx.images-amazon.com/images/I/515eRFg9Y8L._SX404_BO1,204,203,200_.jpg' align='right'>
+
+Kruschke's videos are an excelent introduction to Bayesian Analysis [https://www.youtube.com/watch?v=YyohWpjl6KU](https://www.youtube.com/watch?v=YyohWpjl6KU)!
+
+[Doing Bayesian Data Analysis, Second Edition: A Tutorial with R, JAGS, and Stan](http://www.amazon.com/Doing-Bayesian-Data-Analysis-Second/dp/0124058884/ref=sr_1_1?ie=UTF8&qid=1437688316&sr=8-1&keywords=Kruschke)
+
+*The Theory That Would Not Die: How Bayes' Rule Cracked the Enigma Code, Hunted Down Russian Submarines, and Emerged Triumphant from Two Centuries of Controversy* by Sharon Bertsch McGrayne
+
+Video series by Rasmus Baath [Part 1](https://www.youtube.com/watch?v=3OJEae7Qb_o&app=desktop), [Part 2](https://www.youtube.com/watch?v=mAUwjSo5TJE), [Part 3](https://www.youtube.com/watch?v=Ie-6H_r7I5A)
+
+## Bayes Theorem
+
+$$ P\left( A|B \right) =\frac { P\left( B|A \right) P\left( A \right)  }{ P\left( B|A \right) P\left( A \right) +P\left( B|{ A }^{ ` } \right) P\left( { A }^{ ` } \right)  }   $$
+
+Consider the following data from a cancer test:
+
+* 1% of women have breast cancer (and therefore 99% do not).
+* 80% of mammograms detect breast cancer when it is there (and therefore 20% miss it).
+* 9.6% of mammograms detect breast cancer when it’s not there (and therefore 90.4% correctly return a negative result).
+
+&nbsp;        | Cancer (1%) | No Cancer (99%)
+--------------|-------------|-----------------
+Test postive  | 80%         |  9.6%
+Test negative | 20%         |  90.4%
+
+
+## How accurate is the test?
+
+Now suppose you get a positive test result. What are the chances you have cancer? 80%? 99%? 1%?
+
+* Ok, we got a positive result. It means we’re somewhere in the top row of our table. Let’s not assume anything — it could be a true positive or a false positive.
+* The chances of a true positive = chance you have cancer * chance test caught it = 1% * 80% = .008
+* The chances of a false positive = chance you don’t have cancer * chance test caught it anyway = 99% * 9.6% = 0.09504
+
+&nbsp;        | Cancer (1%)       | No Cancer (99%)
+--------------|-------------------|-----------------
+Test postive  | True +: 1% * 80%  | False +: 99% * 9.6%
+Test negative | False -: 1% * 20% | True -: 99% * 90.4%
+
+## How accurate is the test?
+
+$$ Probability = \frac{desired\quad event}{all\quad possibilities} $$
+
+The chance of getting a real, positive result is .008. The chance of getting any type of positive result is the chance of a true positive plus the chance of a false positive (.008 + 0.09504 = .10304).
+
+**So, our chance of cancer is .008/.10304 = 0.0776, or about 7.8%.**
+
+## Bayes Formula
+
+It all comes down to the chance of a true positive result divided by the chance of any positive result. We can simplify the equation to:
+
+$$ P\left( A|B \right) =\frac { P\left( B|A \right) P\left( A \right)  }{ P\left( B \right)  }  $$
+
+## How many fish are in the lake?
+
+* Catch them all, count them. Not practical (ore even possible)!
+* We can sample some fish.
+
+Our strategy:
+
+1. Catch some fish.
+2. Mark them.
+3. Return the fish to the pond. Let them get mixed up (i.e. wait a while).
+4. Catch some more fish.
+5. Count how many are marked.
+
+For example, we initially caught 20 fish, marked them, returned them to the pond. We then caught another 20 fish and 5 of them were marked (i.e they were caught the first time).
+
+<font size='-2'>
+Adopted from Rasmath Bååth useR! 2015 workshop: http://www.sumsar.net/files/academia/user_2015_tutorial_bayesian_data_analysis_short_version.pdf
+</font>
+
+## Strategy for fitting a model {.flexbox .vcenter}
+
+Step 1: Define Prior Distribution. Draw a lot of random samples from the "prior" probability distribution on the parameters.
+
+```{r, fig.width=8, fig.height=3}
+n_draw <- 100000
+n_fish <- sample(20:250, n_draw, replace = TRUE)
+head(n_fish, n=10)
+hist(n_fish, main="Prior Distribution")
+```
+
+## Strategy for fitting a model {.flexbox .vcenter}
+
+Step 2: Plug in each draw into the generative model which generates "fake" data.
+
+```{r}
+pick_fish <- function(n_fish) { # The generative model
+	fish <- rep(0:1, c(n_fish - 20, 20))
+	sum(sample(fish, 20))
+}
+n_marked <- rep(NA, n_draw)
+for(i in 1:n_draw) {
+	n_marked[i] <- pick_fish(n_fish[i])
+}
+head(n_marked, n=10)
+```
+
+## Strategy for fitting a model {.flexbox .vcenter}
+
+Step 3: Keep only those parameter values that generated the data that was actually observed (in this case, 5).
+
+```{r, fig.width=8, fig.height=3}
+post_fish <- n_fish[n_marked == 5]
+hist(post_fish, main='Posterior Distribution')
+abline(v=median(post_fish), col='red')
+abline(v=quantile(post_fish, probs=c(.25, .75)), col='green')
+```
+
+## What if we have better prior information? {.flexbox .vcenter}
+
+An "expert" believes there are around 200 fish in the pond. Insteand of a uniform distribution, we can use a binomial distribution to define our "prior" distribution.
+
+```{r, fig.width=8, fig.height=3}
+n_fish <- rnbinom(n_draw, mu = 200 - 20, size = 4) + 20
+hist(n_fish, main='Prior Distribution')
+```
+
+## What if we have better prior information? {.flexbox .vcenter}
+
+```{r, fig.width=8, fig.height=3}
+n_marked <- rep(NA, n_draw)
+for(i in 1:n_draw) {
+	n_marked[i] <- pick_fish(n_fish[i])
+}
+post_fish <- n_fish[n_marked == 5]
+hist(post_fish, main='Posterior Distribution')
+abline(v=median(post_fish), col='red')
+abline(v=quantile(post_fish, probs=c(.25, .75)), col='green')
+```
+
+## Bayes Billiards Balls
+
+Consider a pool table of length one. An 8-ball is thrown such that the likelihood of its stopping point is uniform across the entire table (i.e. the table is perfectly level). The location of the 8-ball is recorded, but not known to the observer. Subsequent balls are thrown one at a time and all that is reported is whether the ball stopped to the left or right of the 8-ball. Given only this information, what is the position of the 8-ball? How does the estimate change as more balls are thrown and recorded?
+
+```{r, eval=FALSE}
+shiny_demo('BayesBilliards', package='DATA606')
+```
+
+See also: http://jason.bryer.org/posts/2016-02-21/Bayes_Billiards_Shiny.html
+
